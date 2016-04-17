@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <constant name="struts.i18n.encoding" value="gbk"/>
+     <constant name="struts.devMode" value="true" />
+     <!--Struts2中Action对象的创建交给spring完成-->
+     <constant name="struts.objectFactory" value="spring" />   
+       
+          
+	 <package name="like" namespace="/like" extends="struts-default">
+
+	        <action name="like_*" class="likeAction" method="{1}">
+	        	<result name="main_view">/main.jsp</result>
+	        	<result name="message">/message.jsp</result>
+	        </action>  
+	 </package>
+
+	 <package name="resource" namespace="/resource" extends="struts-default">
+	        <action name="resource_*" class="resourceAction" method="{1}">
+	        	<result name="main_view">/main.jsp</result>
+	        	<result name="resource_message">/resource_message.jsp</result>
+	        	<result name = "detail_view">/detail.jsp</result>
+    		 <result name = "edit_view">/edit.jsp</result>
+    		 <result name= "delete_message">/delete_message.jsp</result>
+    		 <result name = "edit_message">/edit_message.jsp</result>
+	        </action>  
+	 </package>	 
+     <package name="user" namespace="/user" extends="default">
+     <action name="user_*" class="userAction" method = "{1}">
+    	<result name ="show_view" type="chain">
+    		<param name="actionName">resource_showResource</param>
+    		<param name ="namespace">/resource</param>
+    		<param name="param1">${user.username}</param>
+    	</result>
+    	<result name="input">/login.jsp</result>
+     </action>
+     </package>
+     
+</struts>
